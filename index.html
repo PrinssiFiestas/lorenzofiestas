@@ -1,12 +1,188 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Meitsi</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ODOD Overdrive</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo"><span>ODOD</span></div>
+                <nav>
+                    <ul>
+                        <li><a href="#product">Product</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#specs">Specifications</a></li>
+                        <li><a href="#checkout">Buy Now</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
 
-<h1>Yeeboi</h1>
-<p>Jee jee.</p>
+    <!-- Hero / Product Section -->
+    <section id="product" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="product-image">
+                    <!-- Placeholder for product image -->
+                    <div style="background: linear-gradient(45deg, #222, #444); height: 500px; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-cube" style="font-size: 10rem; color: #333;"></i>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h1>The Final Frontier of Drive</h1>
+                    <p>
+                    From the whisper of a pristine clean boost to the roar of a cranked tube stack, and into the wilds of splintered glitch fuzz—ODOD isn't just an overdrive. It's a sonic universe in a box.
+                    </p>
+                    <p>
+                    Engineered for the tonal seeker who refuses to be limited, ODOD redefines versatility. Its revolutionary <b>custom multi-stage circuitry</b> doesn't just clip a signal; it <i>transforms</i> it, modeling the harmonic response of tube amplifiers, classic pedals, and broken circuits you've only dreamed of.
+                    </p>
+                    <p>
+                    <b>For Guitarists:</b> Find your voice. ODOD delivers everything from transparent, touch-sensitive boost that makes your amp come alive, to vintage blues breaks, modern high-gain saturation, and edgy splat fuzz.
+                    </p>
+                    <p>
+                    <b>For Bassists:</b> Command the low end with authority. We have made sure that all the controls are there to ensure your grit never clouds the fundamentals, delivering everything from a subtle hair of warmth to a grinding, synth-like overdrive that cuts through any mix.
+                    </p>
+                    <div class="price">200 €</div>
+                    <div class="product-actions">
+                        <a href="#checkout" class="btn">Buy Now</a>
+                        <a href="#features" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2>Key Features</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <i class="fas fa-sun"></i>
+                    <h3>Adjustable Low-End Tightness</h3>
+                    <p>
+                    From soft ambient light to focused task lighting, adjust to your exact needs with touch controls.
+                    </p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-palette"></i>
+                    <h3>Color Temperature</h3>
+                    <p>Switch between warm, neutral, and cool white light to match your environment and time of day.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-battery-full"></i>
+                    <h3>USB-C Charging</h3>
+                    <p>Built-in rechargeable battery provides up to 12 hours of cord-free operation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specifications Section -->
+    <section id="specs" class="specs">
+        <div class="container">
+            <h2>Specifications</h2>
+            <ul class="specs-list">
+                <li>
+                    <span class="spec-name">Dimensions</span>
+                    <span class="spec-value">12.5" height × 8" base diameter</span>
+                </li>
+                <li>
+                    <span class="spec-name">Weight</span>
+                    <span class="spec-value">2.2 lbs (1 kg)</span>
+                </li>
+                <li>
+                    <span class="spec-name">Light Output</span>
+                    <span class="spec-value">800 lumens (max)</span>
+                </li>
+                <li>
+                    <span class="spec-name">Power Source</span>
+                    <span class="spec-value">9V Battery / AC Adapter</span>
+                </li>
+                <li>
+                    <span class="spec-name">Warranty</span>
+                    <span class="spec-value">2 years</span>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Checkout Section -->
+    <section id="checkout" class="checkout">
+        <div class="container">
+            <h2>Purchase</h2>
+            <div class="checkout-box">
+                <h3>ODOD Overdrive</h3>
+                <div class="price">200 €</div>
+                
+                <div class="form-group">
+                    <label for="quantity">Quantity:</label>
+                    <div class="quantity-selector">
+                        <button class="quantity-btn" id="decrease-qty">-</button>
+                        <input type="number" id="quantity" class="quantity-input" value="1" min="1" max="10">
+                        <button class="quantity-btn" id="increase-qty">+</button>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="color">Color:</label>
+                    <select id="color">
+                        <option value="matte-black">Matte Black</option>
+                        <option value="white">White</option>
+                        <option value="gray">Graphite Gray</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="shipping">Shipping Method:</label>
+                    <select id="shipping">
+                        <option value="standard">Standard (5-7 days) - Free</option>
+                        <option value="express">Express (2-3 days) - $9.99</option>
+                        <option value="overnight">Overnight - $19.99</option>
+                    </select>
+                </div>
+                
+                <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #333;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                        <span>Subtotal:</span>
+                        <span id="subtotal">$129.99</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 1.5rem;">
+                        <span>Shipping:</span>
+                        <span id="shipping-cost">$0.00</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 1.3rem; font-weight: bold;">
+                        <span>Total:</span>
+                        <span id="total">$129.99</span>
+                    </div>
+                </div>
+                
+                <button class="btn" id="checkout-btn" style="width: 100%; margin-top: 2rem; padding: 1.2rem;">
+                    <i class="fas fa-lock"></i> Proceed to Checkout
+                </button>
+                
+                <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem; color: #888;">
+                    <i class="fas fa-shield-alt"></i> Secure checkout powered by [Payment Provider]
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>MONOCHROME &copy; 2023 | Minimalist Design for Modern Living</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem;">This is a template. Checkout functionality will be implemented separately.</p>
+        </div>
+    </footer>
+
+    <script src="checkout.js"/>
 </body>
 </html>
