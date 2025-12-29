@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
-    <!-- Header -->
     <header>
         <div class="container">
             <div class="header-content">
@@ -16,7 +15,8 @@
                 <nav>
                     <ul>
                         <li><a href="#product">Product</a></li>
-                        <li><a href="#features">Features</a></li>
+                        <li><a href="#description">Description</a></li>
+                        <li><a href="#controls">Controls</a></li>
                         <li><a href="#specs">Specifications</a></li>
                         <li><a href="#checkout">Buy Now</a></li>
                     </ul>
@@ -25,15 +25,11 @@
         </div>
     </header>
 
-    <!-- Hero / Product Section -->
     <section id="product" class="hero">
         <div class="container">
             <div class="hero-content">
                 <div class="product-image">
-                    <!-- Placeholder for product image -->
-                    <div style="background: linear-gradient(45deg, #222, #444); height: 500px; display: flex; align-items: center; justify-content: center;">
-                        <i class="fas fa-cube" style="font-size: 10rem; color: #333;"></i>
-                    </div>
+                    <img src="images/od-proto-main.jpg">
                 </div>
                 <div class="product-info">
                     <h1>The Final Frontier of Drive</h1>
@@ -49,75 +45,106 @@
                     <p>
                     <b>For Bassists:</b> Command the low end with authority. We have made sure that all the controls are there to ensure your grit never clouds the fundamentals, delivering everything from a subtle hair of warmth to a grinding, synth-like overdrive that cuts through any mix.
                     </p>
+                    <p>
+                    <b>For Producers:</b> Unleash the harmonics of your mix. The ultra high headroom and smoothly saturating base makes ODOD work well with any input sources, whether that's your drum bus, a synth pad, or anything in between.
+                    </p>
                     <div class="price">200 €</div>
                     <div class="product-actions">
                         <a href="#checkout" class="btn">Buy Now</a>
-                        <a href="#features" class="btn btn-outline">Learn More</a>
+                        <a href="#description" class="btn btn-outline">Learn More</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section id="features" class="features">
+    <section id="description" class="hero">
         <div class="container">
-            <h2>Key Features</h2>
-            <div class="features-grid">
-                <div class="feature">
-                    <i class="fas fa-sun"></i>
-                    <h3>Adjustable Low-End Tightness</h3>
+            <div class="hero-content">
+                <div class="product-info">
+                    <h1>Description</h1>
                     <p>
-                    From soft ambient light to focused task lighting, adjust to your exact needs with touch controls.
+                    ODOD is the culmination of four years of engineering. Its main saturation stage is based on a circuit never seen before, that has been designed to have the smoothest response, although more aggressive (and even glitchy/fuzzy when pushed) drive is available through the diode switch.
                     </p>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-palette"></i>
-                    <h3>Color Temperature</h3>
-                    <p>Switch between warm, neutral, and cool white light to match your environment and time of day.</p>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-battery-full"></i>
-                    <h3>USB-C Charging</h3>
-                    <p>Built-in rechargeable battery provides up to 12 hours of cord-free operation.</p>
+                    <p>
+                    Most other pedals have some hardwired tone coloring in their clipping circuits followed by some sort of tone control. The coloring usually involves cutting bass for clarity/tightness and cutting treble for warmth. ODOD has a different approach: it gives you full control of the internal coloring via LPF and HPF controls. These controls give you much wider ranges of sounds than usually considered reasonable&mdash;who are we to judge your taste in tones?
+                    </p>
+                    <p>
+                    Bass players will be happy to find a dry knob to retain their precious low end. However, it doesn't just simply add the fully dry signal to the mix; it blends it in the middle of the circuit in a way that it still gets affected by the LPF control, which results in a more natural blend. Guitar players also benefit from this: it allows for emulating classic overdrives and even clean/treble boosts.
+                    </p>
+                    <p>
+                    The smooth base with massive headroom combined with diode grit and versatile tone controls with unlimited gain provides infinite sound possibilities to any rig imaginable. From vintage low-output Strats to modern humbuckers, from a Jazz Bass to an active StingRay, through any amplifier&mdash;there are sounds to be explored for everyone.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Specifications Section -->
-    <section id="specs" class="specs">
+    <section id="controls" class="specs">
         <div class="container">
-            <h2>Specifications</h2>
+            <h2>Controls</h2>
             <ul class="specs-list">
                 <li>
-                    <span class="spec-name">Dimensions</span>
-                    <span class="spec-value">12.5" height × 8" base diameter</span>
+                    <span class="spec-name">HPF (High-Pass Filter)</span>
+                    <span class="spec-value">Wet input bass cut (overdrive tightness)</span>
                 </li>
                 <li>
-                    <span class="spec-name">Weight</span>
-                    <span class="spec-value">2.2 lbs (1 kg)</span>
+                    <span class="spec-name">Gain</span>
+                    <span class="spec-value">Wet input gain</span>
                 </li>
                 <li>
-                    <span class="spec-name">Light Output</span>
-                    <span class="spec-value">800 lumens (max)</span>
+                    <span class="spec-name">Wet (dirty)</span>
+                    <span class="spec-value">Wet output volume</span>
                 </li>
                 <li>
-                    <span class="spec-name">Power Source</span>
-                    <span class="spec-value">9V Battery / AC Adapter</span>
+                    <span class="spec-name">Dry (clean)</span>
+                    <span class="spec-value">Dry output volume</span>
                 </li>
                 <li>
-                    <span class="spec-name">Warranty</span>
-                    <span class="spec-value">2 years</span>
+                    <span class="spec-name">LPF (Low-Pass Filter)</span>
+                    <span class="spec-value">Output (wet & dry) treble cut (tone/warmth)</span>
+                </li>
+                <li>
+                    <span class="spec-name">Diode Switch</span>
+                    <span class="spec-value">Off: Smooth saturation | On: Clipping distortion</span>
+                </li>
+                <li>
+                    <span class="spec-name">Footswitch</span>
+                    <span class="spec-value">True Bypass</span>
                 </li>
             </ul>
         </div>
     </section>
 
-    <!-- Checkout Section -->
+    <section id="specs" class="specs">
+        <div class="container">
+            <h2>Specifications</h2>
+            <ul class="specs-list">
+                <li>
+                    <span class="spec-name">Enclosure</span>
+                    <span class="spec-value">Hand made, aluminum with wooden edges</span>
+                </li>
+                <li>
+                    <span class="spec-name">Dimensions</span>
+                    <span class="spec-value">90 mm x 155 mm / 3.5" x 6.1" </span>
+                </li>
+                <li>
+                    <span class="spec-name">Power Source</span>
+                    <span class="spec-value">9V Battery / 9V (do not exceed!) center-negative DC (60 mA)</span>
+                </li>
+                <li>
+                    <span class="spec-name">Warranty</span>
+                    <span class="spec-value">3 years</span>
+                </li>
+            </ul>
+        </div>
+    </section>
+
     <section id="checkout" class="checkout">
         <div class="container">
             <h2>Purchase</h2>
+            Under construction...
+            <!--
             <div class="checkout-box">
                 <h3>ODOD Overdrive</h3>
                 <div class="price">200 €</div>
@@ -171,15 +198,15 @@
                 <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem; color: #888;">
                     <i class="fas fa-shield-alt"></i> Secure checkout powered by [Payment Provider]
                 </p>
+                -->
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
-            <p>MONOCHROME &copy; 2023 | Minimalist Design for Modern Living</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem;">This is a template. Checkout functionality will be implemented separately.</p>
+            <p>ODOD &copy; 2026 Lauri Lorenzo Fiestas</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem;">Contact: &#x00;lorenzo&#x2e;fiestas ät lorenzo<!-- go away bots -->fiestas&#x2e;dev&#x00;</p>
         </div>
     </footer>
 
