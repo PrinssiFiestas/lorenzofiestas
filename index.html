@@ -175,13 +175,55 @@
         </div>
     </section>
 
-    <footer>
+    <footer id="footer">
         <div class="container">
+            <script type="text/javascript">
+            function decode(str)
+            {
+                decoding = "";
+                for (let i = 0; i < str.length; ++i) {
+                    const codepoint = str.codePointAt(i);
+                    decoding += String.fromCodePoint(codepoint + str.length - i);
+                }
+                return decoding;
+            }
+
+            function revealMailer()
+            {
+                const addr = decode("JNRFP]SLPM\\^L_-Z^bV`mc[_\\km[n*acu");
+                const link = document.createElement('a');
+                link.href = decode("f[dhqm9").concat(addr)
+                link.textContent = addr;
+                link.style="color: #0055ff;";
+                document.getElementById("decodedContact").appendChild(link);
+            }
+
+            function counter(count)
+            {
+                const loading = document.getElementById("contactLoading");
+                if (count < 5) {
+                    loading.textContent = "Repelling bots...";
+                    setTimeout(counter, 200, count + 1);
+                } else {
+                    loading.textContent = "";
+                    revealMailer();
+                }
+            }
+
+            function getMailer(element)
+            {
+                element.setAttribute("onclick", "");
+                setTimeout(counter, 200, 0);
+            }
+            </script>
+
             <p>ODOD &copy; 2026 Lauri Lorenzo Fiestas</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem;">Contact: &#x00;lorenzo&#x2e;fiestas ät lorenzo<!-- go away bots -->fiestas&#x2e;dev&#x00;</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem;">
+            Contact: <a style="color: #0055ff;" onclick='getMailer(this);' href="#footer">click if you not bleep bloop 🤖</a>
+            <p id="contactLoading"><p>
+            <div id="decodedContact"></div>
+            </p>
         </div>
     </footer>
-
-    <script src="checkout.js"/>
 </body>
 </html>
