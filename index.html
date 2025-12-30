@@ -17,7 +17,7 @@
                         <li><a href="#product">Product</a></li>
                         <li><a href="#description">Description</a></li>
                         <li><a href="#controls">Controls</a></li>
-                        <li><a href="#specs">Specifications</a></li>
+                        <li><a href="#specs">Specs</a></li>
                         <li><a href="#checkout">Pre-Order</a></li>
                     </ul>
                 </nav>
@@ -50,7 +50,7 @@
                     </p>
                     <div class="price">200 €</div>
                     <div class="product-actions">
-                        <a href="#checkout" class="btn">Buy Now</a>
+                        <a href="#checkout" class="btn">Pre-Order</a>
                         <a href="#description" class="btn btn-outline">Learn More</a>
                     </div>
                 </div>
@@ -144,66 +144,30 @@
         <div class="container">
             <h2>Pre-Order</h2>
             <p>
-            If there is enough interest, then ODOD will be officially released at 1st of March 2026, which will also be the date when most pre-orders will be fulfilled. Otherwise, pre-orders will be fulfilled one by one by shipping hand made pedals, which might take more time. In both cases, early purchases are likely to be fulfilled before the official release.
+            <b>A limited run of ODOD pedals is now available for pre-order.</b>
             </p>
             <p>
-            Please send an email including your shipping information via contact below to receive payment information.
+            Our official release date is set for <b>March 1, 2026</b>. If there is sufficient demand to initiate a production run, this will also be the date when the majority of pre-orders are fulfilled.
             </p>
-            <!--
-            <div class="checkout-box">
-                <h3>ODOD Overdrive</h3>
-                <div class="price">200 €</div>
-                
-                <div class="form-group">
-                    <label for="quantity">Quantity:</label>
-                    <div class="quantity-selector">
-                        <button class="quantity-btn" id="decrease-qty">-</button>
-                        <input type="number" id="quantity" class="quantity-input" value="1" min="1" max="10">
-                        <button class="quantity-btn" id="increase-qty">+</button>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="color">Color:</label>
-                    <select id="color">
-                        <option value="matte-black">Matte Black</option>
-                        <option value="white">White</option>
-                        <option value="gray">Graphite Gray</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="shipping">Shipping Method:</label>
-                    <select id="shipping">
-                        <option value="standard">Standard (5-7 days) - Free</option>
-                        <option value="express">Express (2-3 days) - $9.99</option>
-                        <option value="overnight">Overnight - $19.99</option>
-                    </select>
-                </div>
-                
-                <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #333;">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
-                        <span>Subtotal:</span>
-                        <span id="subtotal">$129.99</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 1.5rem;">
-                        <span>Shipping:</span>
-                        <span id="shipping-cost">$0.00</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; font-size: 1.3rem; font-weight: bold;">
-                        <span>Total:</span>
-                        <span id="total">$129.99</span>
-                    </div>
-                </div>
-                
-                <button class="btn" id="checkout-btn" style="width: 100%; margin-top: 2rem; padding: 1.2rem;">
-                    <i class="fas fa-lock"></i> Proceed to Checkout
-                </button>
-                
-                <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem; color: #888;">
-                    <i class="fas fa-shield-alt"></i> Secure checkout powered by [Payment Provider]
-                </p>
-                -->
+            <p>
+            Regardless of demand, we will begin shipping handmade pedals to early customers in the order they were received. This means early pre-orders are very likely to be delivered <b>before the official March 1st release date</b>.
+            </p>
+            <p>
+            In the event of lower demand, production will continue on a made-to-order basis, which may result in longer fulfillment times for later orders.
+            </p>
+            Shipping: 20 €, estimated 3&ndash;20 business days from release depending on country and demand.
+            <p>
+            </p>
+            <div class="hero-content">
+                <script async
+                src="https://js.stripe.com/v3/buy-button.js">
+                </script>
+
+                <stripe-buy-button
+                buy-button-id="buy_btn_1Sk1Ny2Ytc33hxpiIjwA8L4k"
+                publishable-key="pk_live_51SgoIZ2Ytc33hxpin5KDlhMiSBV5NkGKA2AKx571OLcWEuj20QXww0bU9gVsvRlG7N0LvZe3h1TRBT9MAhkFvmWI00yf4TTTkk"
+                >
+                </stripe-buy-button>
             </div>
         </div>
     </section>
