@@ -21,6 +21,7 @@ body {
 
 /* Typography */
 h1, h2, h3, h4 {
+    padding: 25px 0;
     font-weight: 300;
     letter-spacing: 1px;
 }
