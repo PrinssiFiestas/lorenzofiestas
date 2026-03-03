@@ -188,7 +188,7 @@ Considering that our input domain is limited, if normalized THD value is high, t
 
 [This repository](https://github.com/PrinssiFiestas/soft-clipper-analysis) contains code for multiple experiments and tests for this study. The main experiment generates all potential symmetric clipping functions with given precision `BASE`. For each of the generated functions, a normalized input gain and output gain is calculated to finally find the hardness of the function. Finally, the function with minimum hardness is found. `f` and `f_*` refer to clipping function lookup-tables. 
 
-### Counter (Clipper Geneartor)
+### Counter
 
 An algorithm was developed that generates all potential clipping functions given a discrete precision of `BASE`. The basic idea is based on a counter: take `BASE` number of digits and start counting in that `BASE`. The generated sequence of numbers will be represent the positive side of a clipping function as a lookup table. By counting all numbers, we can ensure that each clipping function has in fact been generated. However, this naïve approach would have a time complexity of $O(\text{n}^\text{n})$, where $n = \text{BASE}$, so we need to find a way of skipping as many counts as possible. Our counting algorithm (starting from the LEFTMOST digit) can be described with the following steps:
 
