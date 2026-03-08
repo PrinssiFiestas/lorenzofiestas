@@ -1,5 +1,19 @@
 # Quantifying Clipping Softness
 
+We present a formal description of clipping functions and a method to analyze their softness mostly audio applications (guitar electronics, audio DSP, etc.) in mind. We also present the smoothest clipping function, the Blunter, and report the results of an experiment showing that it is indeed the smoothest function given our description of clipping smoothness.
+
+## Introduction
+
+Clipping is a fundamental concept in signal processing. In high fidelity applications it is an undesirable artifact of limited headroom and/or failed gain staging, but it can also be an intentional creative effect like in guitar electronics or some music production gear. Either way, the clipping softness has major implications how it is perceived TODO(ref). 
+
+There are multiple studies about non-linear distortions in audio that include some analysis of hard and soft clippers. Some focus on detecting these kinds of distortions TODO(ref), others focus on how these distortions are percieved TODO(ref). However, these studies only use soft clippers as a part of their study, which is not directly about softness. In other words, these studies have not studied clipping softness itself in detail. 
+
+Hard clipping is commonly described as follows: once a signal reaches some threshold it cannot exceed that threshold and will be abruptly cut as shown in figure TODO. There is not much ambiguity regarding to this type of clipping. However, a soft clipper is commonly described as a type of clipping where the signal level may keep increasing after the threshold is reached when increasing the input signal level as shown in figure TODO. However, there are few ambiguities in this definition of soft clipping: the threshold of clipping, the upper limit of clipping, and how the signal transforms from the threshold to to the limit. Many clippers do not have well defined threshold nor they have a well defined limit like $\arctan$. Even if they do, it is still unclear how abruptly the clipper reaches from the threshold to the limit. 
+
+Furthermore, the value for the hypothetical threshold and limit changes as the gain of the input signal changes and/or the gain of the output signal changes. All real world systems have these parameters, often given by the designer (like guitar amplifier gain and volume controls) of the system, but sometimes they are implicit to the system. For example, an implicit output gain could be given by the choice of components in an electronic circuit and implicit input gain could be determined how loudly a singer sings to a microphone. This leads to yet another question: how would you compare the clipping softness of systems with varying input and output gain characteristics?
+
+Our model deals with the threshold and limit ambiguities by analyzing the second derivative of the clipping functions instead of analyzing the thresholds and limits themselves. The second derivative describes exactly how abruptly the changes in the input signal change with increasing input signal levels. We will also present methods to normalize input and output gains to enable meaningful comparison of clipper functions. 
+
 ## Definitions
 
 A **clipping function** $f$ shall be any function that is non-linear, differentiable, and monotonically increasing. Clipping is a form of wave shaping, so it must be non-linear by definition. Monotonicity rules out wave folding effects, the function's output must not change when increasing input beyond it's limits. Additionally, $f'$ shall be unimodal (bell shaped) and nonnegative for all real inputs. This means that $f$ must be a Sigmoid-shadped function. 
@@ -8,9 +22,9 @@ For any meaningful analysis the clipping function must be normalized. For any cl
 $$
 f_1(x) = A_\text{out} f(A_\text{in} x),
 $$
-where $A_\text{in}$ is the **input gain** and $A_\text{out}$ is the **output gain**. 
+where $A_\text{in}$ is the **input gain** and $A_\text{out}$ is the **output gain**. The process of normalization is described later in more detail.
 
-Simplified clipping hardness $H_f$ and softness $S_f$ of any given clipping function can be defined as
+Clipping hardness $H_f$ and softness $S_f$ of any given clipping function can be defined as
 $$
 \begin{align*}
 H_f	&= \max(|f_1''(x)|) \\
@@ -22,42 +36,42 @@ The maximum absolute value of the second derivate describes how abruptly a signa
 If $g(x) = h(kx)$, where $k$ is constant, then the chain rule gives us
 $$
 \begin{align*}
-g'(x)  &= k h'(k x)
+g'(x)  &= k h'(k x) \\
 g''(x) &= k^2 h''(k x),
 \end{align*}
 $$
 which allows us to determine hardness in terms of unnormalized clippers like so:
 $$
 \begin{equation}
-H_f = \max(| A_\text{out} A_\text{in}^2 f''(A_\text{in} x) |). \label{hardness}
+H_f = A_\text{out} A_\text{in}^2 \max(|f''(A_\text{in} x)|). \label{hardness}
 \end{equation}
 $$
 
-The simplified model assumes symmetric clipping and one local extreme for the second derivate on each side of the $x$ axis. We will focus on this type of simplified clipping on this study. Real world clippers may be (and commonly are) asymmetric, and they might have multiple local extrema, which might be the case when composing clippers.
+This simplified model assumes symmetric clipping and $\max$ only considers the larger local extreme for the second derivate on each side of the $x$ axis. We will focus on this type of simplified clipping on this study. Real world clippers may be (and commonly are) asymmetric, and they might have multiple local extrema, which might be the case when composing clippers. We think that this simplification is justified: it can be expected that the sharpest edge of the clipping function dominates the abruptness of change in harmonic content. 
 
-Clippers can be categorized in three catgories:
+Clippers can be categorized in three categories:
 
 - **Bounded** clippers cannot increase their output once some limit is reached. In other words, bounded clippers are piece-wise functions that have zero derivative beyond any given amplitude limit.
 - **Converging** clippers have a limit when approaching infinity. Derivative never gets to zero.
 - **Diverging** clippers do not converge. Derivative never gets to zero.
 
-## Hard Clipping
+## Hard and Soft Clippers
 
 Our model is already powerful enough to do analysis of **hard clipper** $h$. Hard clipper is a special case that does not need to be normalized to determine it's hardness and softness, so we will set it's input and output gains to one. We only need to consider the other side of the waveform for this analysis, we will use the positive side. A hard clipper will be linear until a threshold $T$ is reached after which the output stays constant. We will set this threshold to one. Then, a positive side hard clipper can be described as
 $$
-h(x) = \begin{cases}
+h_+(x) = \begin{cases}
 		x, & x < 1 \\
 		1, & x \ge 1.
 	\end{cases}
 $$
-A hard clipper is not differentiable, and thus, not a valid clipping function on it's own. However, we can approximate it using a soft clipper $s$. A soft clipper also has a clipping threshold, but it also has a variable knee size $k \in (0, 1]$. A knee with zero size would be equivalent of not having a knee at all, which would be hard clipping. This soft clipper is linear below $T - k$, constant above $T + k$, and uses quadratic spline $P$ to interpolate smoothly between $T - k$ to $T + k$. The resulting function is a valid clipping function, however we are only using it to analyze hard clipping, so we will ignore normalization. Then, a positive side soft clipper can be described as
+A hard clipper is not differentiable, and thus, not a valid clipping function on it's own. However, we can approximate it using a quadratic soft clipper $s$, which also has a clipping threshold, but it has a variable knee size $k \in (0, 1]$. A knee with zero size would be equivalent of not having a knee at all, which would be hard clipping. This soft clipper is linear below $T - k$, constant above $T + k$, and uses quadratic spline $P$ to interpolate smoothly between $T - k$ to $T + k$. The resulting function is a valid clipping function, however we are only using it to analyze hard clipping, so we will ignore normalization. Then, a positive side soft clipper can be described as
 $$
 \begin{align*}
 P(x) &= ax^2 + bx + c \\
 a    &= -\frac{1}{4k} \\
 b    &= \frac{1}{2} + \frac{1}{2k} \\
 c    &= \frac{1}{2} - \frac{1}{4k} - \frac{1}{4}k \\
-s(x) &= \begin{cases}
+s_+(x) &= \begin{cases}
 		x,		& x < 1 - k \\
 		P(x),	& 1 - k \le x < 1 + k \\
 		1,		& 1 + k \le x.
@@ -66,7 +80,7 @@ s(x) &= \begin{cases}
 $$
 It is trivial to see that the maximum of the second derivative of the soft clipper is completely determined by the spline. We can also see that 
 $$
-H_{s+} = \max(-s''(x)) = \max(-a) = \frac{1}{4k},
+H_{s+} = \max(-s_+''(x)) = \max(-a) = \frac{1}{4k},
 $$
 so the hardness of $s$ is completely determined by $k$ and the limit of hardness and softness of the soft clipper as the knee size approaches to hard clipping is
 $$
@@ -134,16 +148,16 @@ The input gain controls the amount of clipping distortion. The amount of clippin
 
 The value of THD for normalization will affect softness. Consider any clipper that has some bounded limit like the quadratic soft clipper. Given a periodic input, large amounts of input gain would make the output to converge to a square wave with well defined amplitude. But many soft clippers (like $\arctan(x)$) do not converge. The resulting output of such functions do not necessarily resemble a square wave as closely with large amounts of input gain making it sound smoother. With lower gains, however, $\arctan(x)$ has more noticeable clipping threshold, which is described well by the extreme of the second derivative. We will be focusing on more modest input gains (e.g. potentially used by mixing engineers and semi-clean guitar tones) in this study.
 
-We will define the input domain to be $x \in [-1, 1]$, which will also be used for relevant integration bounds. We will use real numbers instead of voltages or discrete values to retain generality to be applicable to digital and analog domains. It is important to note that in most cases this domain will only represent a subdomain of a system being modeled. Unfortunately, this means that we will lose some information. Consider the inverting amplifier diode soft clipper, which is a relatively common circuit used in guitar effects pedals. If we set the feedback resistor to a high value, we can approximate the circuit as a bipolar logarithm amplifier. According to [this article](https://www.analog.com/en/resources/analog-dialogue/articles/logarithmic-amplifiers-explained.html), such amplifier can be approximately modeled with an inverse hyperbolic sine $\text{arcsinh}(x$). The clipping threshold of this function is determined by the diode's forward voltage, which is typically approximated to be 0.6 V to 0.7 V for silicon P-N diodes. However, $\text{arcsinh}(x)$ does not converge, so the domain of this circuit is going to be the rails voltage, which could be as large as ±9 V for some pedals. Any signal that is large enough to reach the rails despite diode clipping will be very close to a square wave due to diode clipping. There is no use analyzing such functions in their full domains, so it is acceptable to only observe the subdomain where the clipping is the most pronounced. It is also required to limit the domain for any meaningful THD normalization, which is what we do for fairness anyway. 
+TODO junk input domain stuff. We will define the input domain to be $x \in [-1, 1]$, which will also be used for relevant integration bounds. We will use real numbers instead of voltages or discrete values to retain generality to be applicable to digital and analog domains. It is important to note that in most cases this domain will only represent a subdomain of a system being modeled. Unfortunately, this means that we will lose some information. Consider the inverting amplifier diode soft clipper, which is a relatively common circuit used in guitar effects pedals. If we set the feedback resistor to a high value, we can approximate the circuit as a bipolar logarithm amplifier. According to [this article](https://www.analog.com/en/resources/analog-dialogue/articles/logarithmic-amplifiers-explained.html), such amplifier can be approximately modeled with an inverse hyperbolic sine $\text{arcsinh}(x$). The clipping threshold of this function is determined by the diode's forward voltage, which is typically approximated to be 0.6 V to 0.7 V for silicon P-N diodes. However, $\text{arcsinh}(x)$ does not converge, so the domain of this circuit is going to be the rails voltage, which could be as large as ±9 V for some pedals. Any signal that is large enough to reach the rails despite diode clipping will be very close to a square wave due to diode clipping. There is no use analyzing such functions in their full domains, so it is acceptable to only observe the subdomain where the clipping is the most pronounced. It is also required to limit the domain for any meaningful THD normalization, which is what we do for fairness anyway. 
 
 The output gain controls the overall volume. It does not change the clipping characteristics, but the hardness (the second derivative) is directly proportional to it, so it must be normalized. It will be normalized by total power of the clipping function given some signal, which is commonly described by **root mean square** (**RMS**):
 $$
 \begin{equation}
-\text{RMS} = \sqrt{ \int_{-1}^{1} x(t)^2 \,dx } \label{rms}
+\text{RMS} = \sqrt{ \frac{1}{t_1 - t_0} \int_{t_0}^{t_1} x(t)^2 \,dx } \label{rms}
 \end{equation}
 $$
 
-We must choose an input signal for the measurement. It might be tempting to use a sinusoid, since that is what we needed to use to measure and normalize input gain, but the probelm with that is that real world audio is rarely just a pure sinusoid. We need a signal that is roughly an average of all signals in some sense. A good candidate could be **Gaussian noise**, which has a **probability mass function** that follows the normal distribution. The **probability mass** describes how likely it is for a sample to get a specific value. This is important for us, because we need heuristics to determine how our clipping function would transform any given input values to output values on average. Since we cannot know our input signals, a probabilistic approach seems appropriate.
+We must choose an input signal for the measurement. It might be tempting to use a sinusoid, since that is what we needed to use to measure and normalize input gain, but the probelm with that is that real world audio is rarely just a pure sinusoid. Furthermore, $\sin(x) \in [-1, 1]$ ignores TODO(also a note about ignoring high limits somewhere)           We need a signal that is roughly an average of all signals in some sense. A good candidate could be **Gaussian noise**, which has a **probability mass function** that follows the normal distribution. The **probability mass** describes how likely it is for a sample to get a specific value. This is important for us, because we need heuristics to determine how our clipping function would transform any given input values to output values on average. Since we cannot know our input signals, a probabilistic approach seems appropriate.
 
 Gaussian noise does have one huge issue for practical measurements: we would need to generate a huge amount of samples of it in order to converge. This could be done using any psuedo-random number generator and [Box-Muller transform](https://en.wikipedia.org/wiki/Box%E2%80%93Muller_transform), but it would require huge amount of processing before it gets useful. Luckily, we don't need Gaussian noise, we just need anything that will give us a similar probability mass. It turns out that sampling the [quantile function](https://en.wikipedia.org/wiki/Quantile_function) of any given distribution enough times at regular intervals will yield the corresponding probability mass. This means that as our signal we can use the quantile function of a Gaussian called the [probit function], which can be computed using
 $$
@@ -151,10 +165,10 @@ $$
 $$
 where $t \in (0, 1)$ and $\text{erf}^{-1}$ is the inverse of the error function. So finally, using $\eqref{rms}$, we get our output gain normalization:
 $$
-\begin{align*}
-\text{RMS}_f   &= \sqrt{ \int_{-1}^{1} f(A_{\text{in}} \text{probit}(t))^2 \,dt }
-A_{\text{out}} &= \frac{1}{\text{RMS}_f}
-\end{align*}
+\begin{align}
+\text{RMS}_f   &= \sqrt{ \int_0^1 f(A_\text{in} \text{probit}(t))^2 \,dt } \label{f_rms} \\
+A_{\text{out}} &= \frac{1}{\text{RMS}_f} \label{out_gain}
+\end{align}
 $$
 
 ## The Blunter
@@ -178,11 +192,11 @@ The normalized Blunter is
 $$
 B_1(x) = A_{B\text{out}} B(A_{B\text{in}} x).
 $$
-The Blunter is equivalent to our quadratic soft clipper when knee $k = T$ the only difference being normalization constants, so again, it's hardness is determined by the polynomial. Using $\eqref{hardness}$ and $(x - 2x^2)'' = 2$, the hardness of the Blunter is
+The Blunter is equivalent to our quadratic soft clipper when knee $k = T$ the only difference being normalization constants, so again, it's hardness is determined by the polynomial. Using $\eqref{hardness}$ and $|(x - 2x^2)''| = 2$, the hardness of the Blunter is
 $$
-H_B = 2 A_{B\text{out}} B(A_{B\text{in}}^2 B(A_{B\text{in}}.
+H_B = 2 A_{B\text{out}} A_{B\text{in}}^2.
 $$
-Considering that our input domain is limited, if normalized THD value is high, then Blunter's second derivative is a step function. If normalized THD is low, then we would only consider Blunter's polynomial section making it's second derivative constant. We will set the normalized THD to be a value such that the input domain fits exactly in Blunter's full polynomial section. With this normalized input gain, for any other clipper to be smoother, they would have to have the magnitude of their second derivatives smaller tha $H_B$ for all $x$. Considering that the second derivative filters out the linear component of the clipping function, it would most certainly indicate that either the input, the output gain, or both are unnormalized. This is a bit difficult to prove analytically, but it can be experimentally shown that Blunter is indeed the smoothest clipper.
+Considering that our input domain is limited TODO(not the input domain, only the input normalization sinusoid?), if normalized THD value is high, then Blunter's second derivative is a step function. If normalized THD is low, then we would only consider Blunter's polynomial section making it's second derivative constant. For our analysis, we will set the normalized THD to be a value such that the input domain fits exactly in Blunter's full polynomial section. With this normalized input gain, for any other clipper to be smoother, they would have to have the magnitude of their second derivatives smaller tha $H_B$ for all $x$. Considering that the second derivative filters out the linear component of the clipping function, it would most certainly indicate that either the input, the output gain, or both are unnormalized. This is a bit difficult to prove analytically, but it can be experimentally shown that Blunter is indeed the smoothest clipper.
 
 ## Finding the Softest Clipper
 
@@ -190,7 +204,7 @@ Considering that our input domain is limited, if normalized THD value is high, t
 
 ### Counter
 
-An algorithm was developed that generates all potential clipping functions given a discrete precision of `BASE`. The basic idea is based on a counter: take `BASE` number of digits and start counting in that `BASE`. The generated sequence of numbers will be represent the positive side of a clipping function as a lookup table. By counting all numbers, we can ensure that each clipping function has in fact been generated. However, this naïve approach would have a time complexity of $O(\text{n}^\text{n})$, where $n = \text{BASE}$, so we need to find a way of skipping as many counts as possible. Our counting algorithm (starting from the LEFTMOST digit) can be described with the following steps:
+An algorithm was developed that generates all potential clipping functions given a discrete precision of `BASE`. The basic idea is based on a counter: take `BASE` number of digits and start counting in that `BASE`. The generated sequence of numbers will be represent the positive side of a clipping function as a lookup table. By counting all numbers, we can ensure that each clipping function has in fact been generated. However, this naïve approach would have a time complexity of $O(\text{n}^\text{n})$, where $n = \text{BASE}$, so we need to find a way of skipping as many counts as possible. Our counting algorithm (starting from the *leftmost* digit) can be described with the following steps:
 
 1. Knowing that the first derivative of a valid clipping function must be greater than or equal to zero, each time we increment a digit in the middle to a value that is greater than the digit on it's right side, we can duplicate the incremented digit to all of the digits on the right side (flush). 
 
@@ -204,7 +218,7 @@ An algorithm was developed that generates all potential clipping functions given
 
 `TODO more figures`
 
-4. Since we are conceptually counting numbers here, once a digit equals `BASE`, the digit from the left must be incremented. However, the first derivative is known to be decreasing, we can only increment the leftmost digit of a segment with same derivative--increasing any digit on the right side would increase the derivative, so find where the derivative changes and increment that.
+4. Since we are conceptually counting numbers here, once a digit equals `BASE`, the digit from the left must be incremented. However, the first derivative is known to be decreasing, we can only increment the leftmost digit of a segment with same derivative–increasing any digit on the right side would increase the derivative, so find where the derivative changes and increment that.
 
 `TODO one more figure`
 
@@ -214,39 +228,39 @@ This algorithm only generates the positive side of the clipper lookup table. To 
 
 The precision of the generated tables is horrific at this point. Not only our lookup table consists of small integers, but the derivative also decreases in discrete steps. This means that the second derivative would consist of large spikes at these steps and zeroes otherwise, so we must smooth out the steps. 
 
-`TODO spike figure?`
+`TODO figures of clipping functions before and after filtering, and same for second derivatives.`
 
 ### Filter
 
 To smooth out the discrete steps, we had to process the clipper lookup table with a smoothing filter. The filtering had three major requirements:
 
-- Good step response: the filter should preserve the clippers overall shape.
+- Good step response: the filter should preserve the clippers overall shape (no ringing).
 - Good stopband attenuation: the derivatives are extremely sensitive to high frequencies.
 - Zero-phase: `f[0]` must be zero.
 
-The first two requirements are somewhat conflicting, but a good compromize was found by using a single pole IIR low-pass filter with a relatively low cutoff. Being somewhat heavy handed with the cutoff was justified by the fact than any clipper with hard edges could not be the smoothest. Being single pole, the overall shape of the clipper was preserved well, and low cutoff gave reasonably good attenuation at high frequencies. To keep it zero phase, the clipper would be duplicated, then both duplicates would be filtered, the first one from right to left, the other one from left to right. Then results were added together for the final zero-phase result. As an added bonus, being IIR, the step response allows generating very good converging clippers. 
+The first two requirements are somewhat conflicting, but a good compromise was found by using a single pole IIR low-pass filter with a relatively low cutoff. Being somewhat heavy handed with the cutoff was justified by the fact than any clipper with hard edges could not be the smoothest TODO(note about too much filtering?). Being single pole, the overall shape of the clipper was preserved well, and low cutoff gave reasonably good attenuation at high frequencies. To keep it zero phase, the clipper would be duplicated, then both duplicates would be filtered, the first one from right to left, the other one from left to right. Then results were added together for the final zero-phase result. As an added bonus, being IIR, the step response allows generating very good converging clippers. 
 
 Any low-pass filter will ruin the first samples it processes, so we had to extrapolate our clippers. We chose to do quadratic extrapolation by finding the first and second differing samples from the edges to estimate first and second derivatives at the edges. This implicitly assumes non-zero first derivative, which unfortunately slightly reduced the generators capability to generate bounded clippers, but it considerably improved it's capability to generate converging and diverging clippers, so it was worth it. 
 
 ### Normalization
 
-Input gain was normalized by finding the input gain value that matched our normalized THD value. Any hopes of using some analytical formula was futile--the clipper could be literally any valid clipper. However, we observed that secant method gave us really good approximations very fast (TODO(can't remember number) iterations on average). The DFTs for THD calculations were calculated using fixed point integers and pre-calculated tables of sines of frequencies of harmonics to improve computation speed.
+Input gain was normalized by finding the input gain value that matched our normalized THD value. We chose a value such that $$A_{B\text{in}} \approx 1$$, which was about 2.22559 %. This is the upper limit where Blunter should be the smoothest. We observed that [secant method](TODO) gave us really good approximations very fast (less than three iterations on average). The DFTs for THD calculations were calculated using fixed point integers and pre-calculated tables of sines of frequencies of harmonics to improve computation speed. 
 
 To find the good initial guesses for secant method, we plotted THD as function of input gain of large number of generated clipper functions. The first guess would be simply the input gain that on average gives the normalized result. For second guess, we noted that input gain cannot be negative because THD is calculated from squared coefficients. This allowed us to find a minimum point where $\text{THD} \approx 0$. Having our first evaluated value at the first guess and the average minimum point, we could get the next estimate. 
 
 `TODO THD scatter plot`
 
-Input gain normalization was trivial using TODO(ref).
+Output gain normalization was trivial using $\eqref{f_rms}$ and $\eqref{out_gain}$.
 
-The filtered generator was tested by testing if it actually finds a diverging clipper, converging clipper, and a bounded clipper by finding the generated normalized functions with minimal differences from the three functions. We chose $arctan$, a symmetric variant of the logistic function, and of course the Blunter. Figure TODO shows these differences in base of TODO. As we can see, the generated functions match very well for the most part, but the extrapolation adds a little bit of noise at the ends. This however was not very significant, and the matching greatly improves when increasing `BASE`.
+The filtered generator was tested by testing if it actually finds a diverging clipper, converging clipper, and a bounded clipper by finding the generated normalized functions with minimal differences from the three functions. We chose $\arctan$, a scaled and shifted logistic function, and of course the Blunter. Figure TODO shows these differences in base of TODO. As we can see, the generated functions match very well for the most part, but the extrapolation adds a little bit of noise at the ends. This however was not very significant, and the matching greatly improves when increasing `BASE`.
 
 ### Hardness
 
 The final part was to compute the second difference of the clipper and find it's minimum. Then, using chain rule we get
 $$
 \begin{align*}
-f_1(x)   &= A_\text{out} f(A_\text{in} x)
-f_1'(x)  &= A_\text{out} A_\text{in} f'(A_\text{in} x)
+f_1(x)   &= A_\text{out} f(A_\text{in} x) \\
+f_1'(x)  &= A_\text{out} A_\text{in} f'(A_\text{in} x) \\
 f_1''(x) &= A_\text{out} A_\text{in}^2 f''(A_\text{in} x)
 \end{align*}
 $$
@@ -256,3 +270,21 @@ H_f = | A_\text{out} A_\text{in}^2 \min(f''(A_\text{in} x)) |.
 $$
 
 ### Results
+
+For $$\text{BASE} = 100$$, a total of 1 642 992 567 generated functions were analyzed in four hours on Intel i7-8750H CPU @ 2.20 GHz (GPU was also used, but with very little performance gains due to the serial nature of the problem). The function with smallest hardness was the 98 581 013th generated function with a softness of approximately 0.382396. Then, a hard coded lookup table representing the Blunter was generated and it was compared against the found function. The mean of the absolute differences of lookups of normalized Blunter and the smoothest found was 0.00504009, which is 0.405966 % relative to normalized Blunter's highest value (which is also the Blunter's output gain normalization value since $B(1) = 1$). This confirms to a reasonable accuracy the smoothest function generated does in fact represent the Blunter. Figure TODO shows a plot of the absolute differences. 
+
+`TODO absolute differences plot`
+
+Blunter's softness was measured to be approximately 0.405966, which is considerably higher than what was measured from the generated function. This is expected; our generator generated the functions based on low precision discrete derivatives and second derivatives. Even after filtering, these discrete steps would still show in the generated function as spikes. However, since Blunter has a constant second derivative, we expect to have many spikes in the second derivative that are spread out as evenly as possible. Figure TODO shows the second derivative of the generated function, where you can clearly see these spikes. While they are indeed very evenly spread out, they will nonetheless increase the measured hardness. 
+
+`TODO generated second derivative plot`
+
+It is also worth noting that our generator made the function symmetric by fixing the zeroth element to zero and mirroring the function. This gives zero second difference at $f[0]$, which is what we also see in the plot. Also, the IIR filtering would somewhat gradually decrease the magnitude of the second derivative to zero at the end of the generated domain. It should be noted that the second derivative is very sensitive to these sort of inaccuracies, but we got a reasonably good quality second derivatives and a very precise result anyway.
+
+## Future Work
+
+While it is expected that the constant second derivative makes the Blunter the smoothest for all THD normalization values below ours, our experiment only showed that this is the case in the upper limit. It is also expected that the Blunter is the smoothest clipper when including asymmetric clippers (if it is the smoothest on one side, why would the other one be any different?), but again, our experiment ignored those to keep computation times sensible. TODO(if we there is no more future work, then just move this paragraph above somewhere.)
+
+## Conclusion
+
+TODO
