@@ -27,8 +27,6 @@ Hard clipping is commonly described as follows: once a signal reaches some thres
     	<b>Figure 1:</b> Comparison of three clipping types. (a) has unambiguous limit/threshold. The threshold in (b) would not be immediately clear if we didn't show it. In fact, it is only known because we happened to use a soft clipper with a well defined threshold. However, where is the limit and threshold in (c)?
     </p>
 </div>
-
-
 Furthermore, the value for the hypothetical threshold and limit changes as the gain of the input signal changes and/or the gain of the output signal changes. All real world systems have these parameters, often given by the designer (like guitar amplifier gain and volume controls) of the system, but sometimes they are implicit to the system. For example, an implicit output gain could be given by the choice of components in an electronic circuit and implicit input gain could be given by the loudness of a singer singing into a microphone. This leads to yet another question: how would you compare the clipping softness of systems with varying input and output gain characteristics? 
 
 Our model deals with the threshold and limit ambiguities by analyzing the second derivative of the clipping functions instead of analyzing some hypothetical thresholds and limits. The second derivative describes exactly how abruptly the changes in the input signal change with increasing input signal levels. We will also look at an alternative definition of softness based on change of higher order harmonics as input amplitude increases and present methods to normalize input and output gains to enable meaningful comparison of different clipper functions. 
@@ -505,8 +503,6 @@ Hard coded Blunter's precise softness was measured to be approximately 0.405966,
     	<b>Figure 9:</b> Softest generated clipper and it's derivatives. Since it was expected to match the Blunter, the first derivative was expected to have a somewhat linear section, and the second derivative was expected to have a somewhat constant section, which is what we observed (albeit a bit noisy). 
     </p>
 </div>
-
-
 It is also worth noting that our generator made the function symmetric by fixing the zeroth element to zero and mirroring the function. This always gives zero second difference at $f[0],$ which is what we also see in the Figure 9 (c). Also, the IIR filtering would somewhat gradually decrease the magnitude of the second derivative to zero at the end of the generated domain. It should be noted that the second derivative is very sensitive to these sort of inaccuracies, but we got a reasonably good quality second derivatives and a very precise result anyway. 
 
 ## Comparing Hardness to WTHD Hardness
@@ -538,8 +534,6 @@ The plot in Figure 10 (b) shows WTHD softness against softness for one hundred q
     	<b>Figure 10:</b> Comparison of our different hardness definitions. WTHD hardness is used on y-axis, hardness is used on x-axis. 
     </p>
 </div>
-
-
 ## Future Work
 
 While it is expected that the constant second derivative makes the Blunter the softest for all THD normalization values below ours, our experiment only showed that this is the case in the upper limit. It is also expected that the Blunter is the softest clipper when including asymmetric clippers (if it is the softest on one side, why would the other one be any different?), but again, our experiment ignored those to keep computation times sensible. More experiments with different THD normalization values and asymmetric clippers are needed. 
