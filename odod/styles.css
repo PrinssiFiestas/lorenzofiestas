@@ -1,9 +1,9 @@
-/* Reset and Base Styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -19,7 +19,6 @@ body {
     padding: 0 20px;
 }
 
-/* Typography */
 h1, h2, h3, h4 {
     padding: 25px 0;
     font-weight: 300;
@@ -50,7 +49,6 @@ p {
     line-height: 1.8;
 }
 
-/* Header */
 header {
     padding: 2rem 0;
     border-bottom: 1px solid #333;
@@ -59,13 +57,11 @@ header {
     background-color: rgba(0, 0, 0, 0.95);
     z-index: 100;
 }
-
 .header-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-
 .logo {
     font-size: 1.8rem;
     font-weight: 300;
@@ -97,7 +93,6 @@ nav ul li a:hover {
     color: #aaa;
 }
 
-/* Hero Section */
 .hero {
     padding: 5rem 0;
     display: flex;
@@ -112,31 +107,12 @@ nav ul li a:hover {
     align-items: center;
 }
 
-.product-image {
-    width: 100%;
-    border-radius: 5px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.05);
-}
-
-.product-image img {
-    width: 100%;
-    height: auto;
-    display: block;
-    transition: transform 0.5s;
-}
-
-.product-image:hover img {
-    transform: scale(1.03);
-}
-
 .price {
     font-size: 2.5rem;
     margin: 1.5rem 0;
     color: #fff;
 }
 
-/* Buttons */
 .btn {
     display: inline-block;
     background-color: #fff;
@@ -168,7 +144,6 @@ nav ul li a:hover {
     color: #000;
 }
 
-/* Specifications */
 .specs {
     padding: 5rem 0;
 }
@@ -196,7 +171,6 @@ nav ul li a:hover {
     color: #aaa;
 }
 
-/* Footer */
 footer {
     padding: 3rem 0;
     border-top: 1px solid #333;
@@ -204,7 +178,6 @@ footer {
     color: #777;
 }
 
-/* Responsive Design */
 @media (max-width: 992px) {
     .hero-content {
         grid-template-columns: 1fr;
@@ -240,4 +213,99 @@ footer {
     .features-grid {
         grid-template-columns: 1fr;
     }
+}
+
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+.prev {
+  left: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+.numbertext {
+  color: #f2f2f2;
+  font-size: 24px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+
+/* [1] The container */
+.img-hover-zoom {
+/*     width: 100%; */
+/*   height: 300px; */
+  overflow: hidden;
+}
+
+/* [2] Transition property for smooth transformation of images */
+.img-hover-zoom img {
+    width: 100%;
+  transition: transform .5s ease;
+}
+
+/* [3] Finally, transforming the image when container gets hovered */
+.img-hover-zoom:hover img {
+  transform: scale(1.5);
 }

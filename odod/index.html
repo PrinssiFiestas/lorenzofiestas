@@ -30,13 +30,82 @@
 
     <section id="product" class="hero">
         <div class="container">
-            <div class="hero-content">
-                <div class="product-image">
-                    <img src="images/od-proto-main.jpg">
-                    <p style="margin-top: 1rem; font-size: 0.9rem;">
-                    Prototype unit. Final product may have some cosmetic differences.
-                    </p>
+            <div class="hero-content"">
+                <div class="slideshow-container">
+                    <div class="mySlides fade">
+                        <div class="numbertext">1 / 8</div>
+                        <div class="img-hover-zoom">
+                            <img src="images/odod-final-proto5.jpeg" style="width:100%">
+                        </div>
+                    </div>
+                    <div class="mySlides fade">
+                        <div class="numbertext">2 / 8</div>
+                        <div class="img-hover-zoom">
+                            <img src="images/odod-final-proto6.jpeg" style="width:100%">
+                        </div>
+                    </div>
+                    <div class="mySlides fade">
+                        <div class="numbertext">3 / 8</div>
+                        <div class="img-hover-zoom">
+                            <img src="images/odod-final-proto7.jpeg" style="width:100%">
+                        </div>
+                    </div>
+                    <div class="mySlides fade">
+                        <div class="numbertext">4 / 8</div>
+                        <div class="img-hover-zoom">
+                            <img src="images/odod-final-proto8.jpeg" style="width:100%">
+                        </div>
+                    </div>
+                    <div class="mySlides fade">
+                        <div class="numbertext">5 / 8</div>
+                        <div class="img-hover-zoom">
+                            <img src="images/odod-final-proto9.jpeg" style="width:100%">
+                        </div>
+                    </div>
+                    <div class="mySlides fade">
+                        <div class="numbertext">6 / 8</div>
+                        <div class="img-hover-zoom">
+                            <img src="images/odod-final-proto10.jpeg" style="width:100%">
+                        </div>
+                    </div>
+                    <div class="mySlides fade">
+                        <div class="numbertext">7 / 8</div>
+                        <div class="img-hover-zoom">
+                            <img src="images/odod-final-proto11.jpeg" style="width:100%">
+                        </div>
+                    </div>
+                    <div class="mySlides fade">
+                        <div class="numbertext">8 / 8</div>
+                        <div class="img-hover-zoom">
+                            <img src="images/odod-final-proto12.jpeg" style="width:100%">
+                        </div>
+                    </div>
+                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
                 </div>
+
+                <script>
+                let slideIndex = 1;
+                showSlides(slideIndex);
+                function plusSlides(n) {
+                    showSlides(slideIndex += n);
+                }
+                function showSlides(n) {
+                    let i;
+                    let slides = document.getElementsByClassName("mySlides");
+                    let dots = document.getElementsByClassName("dot");
+                    if (n > slides.length) {slideIndex = 1}
+                    if (n < 1) {slideIndex = slides.length}
+                    for (i = 0; i < slides.length; i++) {
+                        slides[i].style.display = "none";
+                    }
+                    for (i = 0; i < dots.length; i++) {
+                        dots[i].className = dots[i].className.replace(" active", "");
+                    }
+                    slides[slideIndex-1].style.display = "block";
+                }
+                </script>
+
                 <div class="product-info">
                     <h1>The Final Frontier of Drive</h1>
                     <p>
@@ -112,7 +181,7 @@
                 </li>
                 <li>
                     <span class="spec-name">Diode Switch</span>
-                    <span class="spec-value" align="right">Off: Smooth saturation | On: Asymmetric clipping</span>
+                    <span class="spec-value" align="right">No diodes: symmetric | 6:3 asymmetry | 6:1 asymmetry</span>
                 </li>
                 <li>
                     <span class="spec-name">Footswitch</span>
@@ -128,7 +197,7 @@
             <ul class="specs-list">
                 <li>
                     <span class="spec-name">Enclosure</span>
-                    <span class="spec-value" align="right">Aluminum, wooden edges</span>
+                    <span class="spec-value" align="right">Aluminum, white oak edges</span>
                 </li>
                 <li>
                     <span class="spec-name">Dimensions</span>
@@ -150,7 +219,7 @@
         <div class="container">
             <h2>Pre-Order</h2>
             <p>
-            <b>A limited run of ODOD pedals is now available for pre-order.</b>
+            <b>A limited run of ODOD pedals is now available for pre-order at a discounted price</b> (200 € + shipping).
             </p>
             <p>
             Our official release date is set for <b>June 1, 2026</b>. If there is sufficient demand to initiate a production run, this will also be the date when the majority of pre-orders are fulfilled.
